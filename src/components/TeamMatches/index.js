@@ -1,8 +1,10 @@
 // Write your code here
 import './index.css'
+import {Link} from 'react-router-dom'
 import Loader from 'react-loader-spinner'
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
 import {Component} from 'react'
+import PieChartComponent from '../PieChart'
 import LatestMatch from '../LatestMatch'
 import MatchCard from '../MatchCard'
 
@@ -60,21 +62,66 @@ class TeamMatches extends Component {
     return (
       <div className="team-matches-container">
         <img src={teamBannerUrl} alt="team banner" className="team-banner" />
-        <LatestMatch latestMatch={latestMatchDetails} />
+        <LatestMatch
+          latestMatch={latestMatchDetails}
+          key={latestMatchDetails.id}
+        />
         {this.renderRecentMatchesList()}
+
+        <Link to="/" className="link-back">
+          <button type="button" className="back-button">
+            Back
+          </button>
+        </Link>
       </div>
     )
   }
 
   renderRecentMatchesList = () => {
+    let won = 0
+    let lost = 0
+    let drawn = 0
+
     const {matchesData} = this.state
     const {recentMatches} = matchesData
+
+    recentMatches.map(eachData => {
+      if (eachData.matchStatus === 'Won') {
+        won += 1
+        return won
+      }
+      if (eachData.matchStatus === 'Lost') {
+        lost += 1
+        return lost
+      }
+      drawn += 1
+      return drawn
+    })
+
+    const data = [
+      {name: 'won', value: won},
+      {name: 'lost', value: lost},
+      {name: 'drawn', value: drawn},
+    ]
+
     return (
-      <ul className="recent-matches-list">
-        {recentMatches.map(eachMatch => (
-          <MatchCard matchData={eachMatch} key={eachMatch.id} />
-        ))}
-      </ul>
+      <>
+        <ul className="recent-matches-list">
+          {recentMatches.map(eachMatch => (
+            <MatchCard
+              result={eachMatch.result}
+              competingTeam={eachMatch.competingTeam}
+              competingTeamLogo={eachMatch.competingTeamLogo}
+              matchStatus={eachMatch.matchStatus}
+              uniqueId={eachMatch.id}
+              key={eachMatch.id}
+            />
+          ))}
+        </ul>
+        <div className="list-container">
+          <PieChartComponent data={data} />
+        </div>
+      </>
     )
   }
 

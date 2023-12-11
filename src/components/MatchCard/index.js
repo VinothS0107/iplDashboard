@@ -4,10 +4,16 @@ import {Component} from 'react'
 
 class MatchCard extends Component {
   render() {
-    const {matchData} = this.props
-    const {result, competingTeam, competingTeamLogo, matchStatus} = matchData
+    const {
+      result,
+      competingTeam,
+      competingTeamLogo,
+      matchStatus,
+      uniqueId,
+    } = this.props
+
     return (
-      <li className={`match-card ${matchStatus}`}>
+      <li className={`match-card ${matchStatus}`} key={uniqueId}>
         <img
           className="match-card-logo"
           src={competingTeamLogo}

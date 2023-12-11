@@ -16,6 +16,8 @@
   .team-matches-container {
     margin-top: 56px;
     max-width: 1110px;
+    display: flex;
+    flex-direction: column;
   }
 }
 .team-banner {
@@ -73,5 +75,39 @@
 @media screen and (min-width: 768px) {
   .recent-matches-list {
     margin-top: 32px;
+    width: 100%;
   }
+}
+.back-button {
+  background-color: transparent;
+  margin: 20px;
+  width: 60px;
+  height: 30px;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  text-align: center;
+  color: aliceblue;
+  font-size: 18px;
+  font-family: 'Roboto';
+  font-weight: 500;
+  cursor: pointer;
+}
+.back-button:hover {
+  background-color: transparent;
+  margin: 20px;
+  width: 60px;
+  height: 30px;
+  border: 1px solid lightgray;
+  background-color: green;
+  border-radius: 5px;
+  text-align: center;
+  color: aliceblue;
+  font-size: 18px;
+  font-family: 'Roboto';
+  font-weight: 500;
+  cursor: pointer;
+}
+.link-back {
+  text-decoration: none;
+  text-align: center;
 }
